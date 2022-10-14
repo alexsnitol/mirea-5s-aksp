@@ -43,9 +43,12 @@ public class ClientSocket extends Thread {
                     LocalTime currentTime = LocalTime.now();
 
                     String structuredMessage
-                            = socket.getInetAddress().getHostAddress() + ": "
-                            + currentTime.getHour() + ":" + currentTime.getMinute() + ":" + currentTime.getSecond()
-                            + " - " + message;
+                            = message
+                            + " ["
+                            + currentTime.getHour()
+                            + ":" + currentTime.getMinute()
+                            + ":" + currentTime.getSecond()
+                            + "]";
 
                     Server.messageList.add(structuredMessage);
                 }

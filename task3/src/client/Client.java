@@ -36,7 +36,7 @@ public class Client {
 
                     String str = reader.readLine();
 
-                    serverWriter.write("(" + username + ")" + str + "\n");
+                    serverWriter.write("(" + username + "): " + str + "\n");
                     serverWriter.flush();
 
                     if (str.equals("exit")) {
