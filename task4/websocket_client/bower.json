@@ -17,6 +17,7 @@
   "dependencies": {
     "bootstrap": "^5.2.2",
     "sockjs": "^0.3.4",
-    "jquery": "^3.6.1"
+    "jquery": "^3.6.1",
+    "stomp-websocket": "^2.3.4"
   }
 }
