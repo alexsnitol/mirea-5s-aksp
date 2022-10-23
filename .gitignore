@@ -3,6 +3,9 @@
 *.doc
 *.docx
 
+### Bower
+**/bower_components/**
+
 ### Java template
 # Compiled class file
 *.class
