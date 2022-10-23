@@ -1,0 +1,22 @@
+{
+  "name": "websocket_client",
+  "homepage": "https://github.com/alexsnitol/mirea-5s-aksp",
+  "authors": [
+    "alexsnitol <sslotin74@gmail.com>"
+  ],
+  "description": "task4",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "sockjs": "^0.3.4",
+    "jquery": "^3.6.1"
+  }
+}
