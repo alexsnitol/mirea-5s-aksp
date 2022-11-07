@@ -27,6 +27,7 @@
             <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">Username</span>
                 <input id="username" type="text" class="form-control" placeholder="Enter your username here..." aria-label="Username" aria-describedby="basic-addon1">
+                <input id="password" type="password" class="form-control" placeholder="Enter your password here..." aria-label="Password" aria-describedby="basic-addon1">
                 <button id="connect" class="btn btn-primary" type="submit">Connect</button>
                 <button id="connected" class="btn btn-success" disabled="disabled" hidden="hidden">Connected</button>
                 <button id="loading" class="btn btn-primary" type="submit" disabled="disabled" hidden="hidden">
@@ -35,6 +36,7 @@
                 </button>
                 <button id="disconnect" class="btn btn-primary" type="submit" hidden="hidden">Disconnect</button>
             </div>
+            <div class="alert alert-danger" role="alert" id="error" hidden="hidden"></div>
         </form>
     </div>
     <div id="messages-block" class="row" style="padding: 20px" hidden="hidden">
