@@ -1,14 +1,23 @@
 let stompClient = null;
 let currentUserName = "anonymous";
+let messageRequest = {
+    "id":0,
+    "senderUsername":"anonymous",
+    "text":"text"
+};
 
 function setConnected(connected) {
     $("#connected").prop("hidden", !connected);
-    $("#messages-block").prop("hidden", !connected);
+    $("#messages-block").prop("hidden", false);
     $("#loading").prop("hidden", true);
     $("#connect").prop("hidden", connected);
     $("#connect").prop("disabled", connected);
     $("#username").prop("disabled", connected);
     $("#disconnect").prop("hidden", !connected);
+
+    if(connected) {
+        $("#error").prop("hidden", true);
+    }
 
     if (connected) {
         $("#conversation").show();
@@ -30,12 +39,20 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
 
-        sendName();
+        authority();
 
         console.log('Connected: ' + frame);
+
         stompClient.subscribe('/topic/messages', function (message) {
             let jsonObject = JSON.parse(message.body);
-            showMessage(jsonObject["sender"], jsonObject["message"]);
+
+            if (jsonObject["sender"]["username"] === "SYSTEM" && jsonObject["text"] === "Invalid credentials") {
+                $("#error").html("Invalid credentials");
+                $("#error").prop("hidden", false);
+                disconnect();
+            }
+
+            showMessage(jsonObject);
         });
     });
 }
@@ -56,29 +73,29 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
+function authority() {
     currentUserName = $("#username").val();
+    let password = $("#password").val();
     stompClient.send("/app/connect", {}, JSON.stringify(
         {
-            'username': currentUserName
-        }
-        ));
+            'username': currentUserName,
+            'password': password
+        })
+    );
 }
 
 function sendMessage() {
     stompClient.send("/app/message", {}, JSON.stringify(
         {
-            'sender': currentUserName,
-            'message': $("#message").val()
+            'usernameOfSender': currentUserName,
+            'text': $("#message").val()
         }
     ));
     $("#message").val("");
 }
 
-function showMessage(username, message) {
-    let today = new Date();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    $("#messages").append("<tr><td><span class='label'>" + time + "</span>, <span class='label'>" + username + "</span>: " + message + "</td></tr>");
+function showMessage(message) {
+    $("#messages").append("<tr><td><span class='label'>" + message["createdDt"] + "</span>, <span class='label'>" + message["sender"]["username"] + "</span>: " + message["text"] + "</td></tr>");
 }
 
 $(function () {

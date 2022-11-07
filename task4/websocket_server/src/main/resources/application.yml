@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        driver-class-name: org.sqlite.JDBC
+        password: admin
+        url: jdbc:sqlite:database.db
+        username: admin
+    jpa:
+        database-platform: ru.mirea.websocketserver.config.SQLiteDialect
+        hibernate:
+            ddl-auto: create
